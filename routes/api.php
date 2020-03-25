@@ -26,8 +26,17 @@ Route::get('articles', 'ArticleController@index');
 
 Route::group(['middleware' => ['jwt.verify']], function () {
     Route::get('user', 'UserController@getAuthenticatedUser');
+
+    // ARTICLES
     Route::get('articles/{article}', 'ArticleController@show');
     Route::post('articles', 'ArticleController@store');
     Route::put('articles/{article}', 'ArticleController@update');
     Route::delete('articles/{article}', 'ArticleController@delete');
+
+    // COMMENTS
+    Route::get('articles/{article}/comments', 'CommentController@index');
+    Route::get('articles/{article}/comments/{comment}', 'CommentController@show');
+    Route::post('articles/{article}/comments', 'CommentController@store');
+    Route::put('articles/{article}/comments', 'CommentController@update');
+    Route::delete('articles/{article}/comments/{comment}', 'CommentController@delete');
 });
