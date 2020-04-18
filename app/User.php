@@ -51,5 +51,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany('App\Comment','user_id','id');
 
     }
+
+    public function userable()
+    {
+        return $this->morphTo();
+    }
 }
 
