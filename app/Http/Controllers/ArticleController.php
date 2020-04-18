@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Article;
 use App\Http\Resources\Article as ArticleResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
@@ -23,14 +24,20 @@ class ArticleController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
-            'body' => 'required|string'
+            'body' => 'required|string',
+            'image' => 'required|image|dimensions:min_width=200,min_height=200',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['error' => 'data_validation_failed', "error_list"=>$validator->errors()], 400);
         }
 
-        $article = Article::create($request->all());
+        $article = new Article($request->all());
+        $path = $request->image->store('articles');
+        $article->image_url = $path;
+
+        $article->save();
+
         return response()->json(new ArticleResource($article), 201);
     }
 

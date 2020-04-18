@@ -8,7 +8,7 @@ class Article extends Model
 {
 //    protected $table = 'posts';
 
-    protected $fillable = ['title', 'body'];
+    protected $fillable = ['title', 'body', 'image_url'];
 
     public static function boot()
     {
