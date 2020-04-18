@@ -36,7 +36,7 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+            return response()->json(['error' => 'data_validation_failed', "error_list"=>$validator->errors()], 400);
         }
 
         $user = User::create([
