@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Article extends Model
 {
@@ -15,7 +16,7 @@ class Article extends Model
         parent::boot();
 
         static::creating(function ($article) {
-            $article->user_id = auth()->user()->id;
+            $article->user_id = Auth::id();
         });
     }
 
@@ -26,6 +27,6 @@ class Article extends Model
 
     public function user()
     {
-        $this->belongsTo('App\User','user_id','id');
+        return $this->belongsTo('App\User','user_id','id');
     }
 }

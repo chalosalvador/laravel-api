@@ -21,8 +21,9 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255',
+            'title' => 'required|string||max:255',
             'body' => 'required|string'
         ]);
 
