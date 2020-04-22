@@ -40,19 +40,6 @@ class UsersTableSeeder extends Seeder
                 'password' => $password,
             ]);
 
-            // login with recently created user
-            JWTAuth::attempt(['email' => $email, 'password' => 'toptal']);
-
-            // And now, let's create a few articles in our database for this user:
-            $num_articles = rand(0, 20);
-            for ($j = 0; $j < $num_articles; $j++) {
-                Article::create([
-                    'title' => $faker->sentence,
-                    'body' => $faker->paragraph,
-                ]);
-            }
-
-
         }
     }
 }

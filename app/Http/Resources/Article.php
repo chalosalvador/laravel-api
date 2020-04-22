@@ -21,6 +21,7 @@ class Article extends JsonResource
             'title' => $this->title,
             'body' => $this->body,
             'user' => new UserResource(User::find($this->user_id)),
+            'image' => $this->image,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
