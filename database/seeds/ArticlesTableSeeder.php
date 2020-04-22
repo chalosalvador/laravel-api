@@ -16,6 +16,7 @@ class ArticlesTableSeeder extends Seeder
     {
         // Vaciar la tabla articles.
         Article::truncate();
+        JWTAuth::attempt(['email' => 'admin@test.com', 'password' => 'toptal']); // creates all articles for admin
         $faker = \Faker\Factory::create();
 
         // Obtenemos la lista de todos los usuarios creados e
@@ -30,9 +31,10 @@ class ArticlesTableSeeder extends Seeder
             $num_articles = 5;
             for ($j = 0; $j < $num_articles; $j++) {
                 Article::create([
-                    'title' => $faker->sentence,
-                    'body' => $faker->paragraph,
-                ]);
+                'title' => $faker->sentence,
+                'body' => $faker->paragraph,
+                'image' => $faker->imageUrl(400,300, null, false)
+            ]);
             }
 
         }
