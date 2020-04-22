@@ -60,7 +60,6 @@ class ArticleController extends Controller
         }
 
         $article->update($request->all());
-
         return response()->json(new ArticleResource($article), 200);
     }
 
@@ -70,5 +69,4 @@ class ArticleController extends Controller
 
         return response()->json(null, 204);
     }
-
 }
