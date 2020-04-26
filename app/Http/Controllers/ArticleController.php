@@ -5,19 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Article;
 use App\Http\Resources\Article as ArticleResource;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ArticleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $this->authorize('viewAny', Article::class);
         return response()->json(ArticleResource::collection(Article::all()), 200);
     }
 
     public function show(Article $article)
     {
+        $this->authorize('view', $article);
         return response()->json(new ArticleResource($article), 200);
     }
 
@@ -28,6 +28,7 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'body' => 'required|string',

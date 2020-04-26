@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Comment extends Model
 {
@@ -14,17 +15,17 @@ class Comment extends Model
         parent::boot();
 
         static::creating(function ($comment) {
-            $comment->user_id = auth()->user()->id;
+            $comment->user_id = Auth::id();;
         });
     }
 
     public function article()
     {
-        $this->belongsTo('App\Article','article_id','id');
+        return $this->belongsTo('App\Article','article_id','id');
     }
 
     public function user()
     {
-        $this->belongsTo('App\User','user_id','id');
+        return $this->belongsTo('App\User','user_id','id');
     }
 }
